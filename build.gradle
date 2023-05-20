@@ -30,7 +30,6 @@ dependencies {
 		exclude group: "org.slf4j", module: "slf4j-simple"
 	}
 
-
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
