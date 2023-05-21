@@ -1,12 +1,13 @@
 package com.zerobase.account.controller;
 
 import com.zerobase.account.domain.Account;
+import com.zerobase.account.dto.CreateAccount;
 import com.zerobase.account.service.AccountService;
 import com.zerobase.account.service.RedisTestService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,10 +21,13 @@ public class AccountController {
         return redisTestService.getLock();
     }
 
-    @GetMapping("/create-account")
-    public String createAccount() {
-        accountService.createAccount();
-        return "success";
+    @PostMapping("/account")
+    public CreateAccount.Response createAccount(
+            @RequestBody @Valid CreateAccount.Request request) {
+        return CreateAccount.Response.from(
+                accountService.createAccount(
+                        request.getUserId()
+                        , request.getInitialBalance()));
     }
 
     @GetMapping("/account/{id}")
