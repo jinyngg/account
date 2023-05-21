@@ -1,4 +1,4 @@
-package com.study.account.config;
+package com.zerobase.account.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

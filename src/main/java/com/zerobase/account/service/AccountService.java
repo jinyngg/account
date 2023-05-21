@@ -1,8 +1,8 @@
-package com.study.account.service;
+package com.zerobase.account.service;
 
-import com.study.account.domain.Account;
-import com.study.account.domain.AccountStatus;
-import com.study.account.repository.AccountRepository;
+import com.zerobase.account.domain.Account;
+import com.zerobase.account.domain.AccountStatus;
+import com.zerobase.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,9 @@ public class AccountService {
 
     @Transactional
     public Account getAccount(Long id) {
+        if (id < 0) {
+            throw new RuntimeException("Minus");
+        }
         return accountRepository.findById(id).get();
     }
 

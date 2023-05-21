@@ -1,4 +1,4 @@
-package com.study.account.domain;
+package com.zerobase.account.domain;
 
 import lombok.*;
 

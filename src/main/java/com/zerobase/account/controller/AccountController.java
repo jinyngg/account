@@ -1,8 +1,8 @@
-package com.study.account.controller;
+package com.zerobase.account.controller;
 
-import com.study.account.domain.Account;
-import com.study.account.service.AccountService;
-import com.study.account.service.RedisTestService;
+import com.zerobase.account.domain.Account;
+import com.zerobase.account.service.AccountService;
+import com.zerobase.account.service.RedisTestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
