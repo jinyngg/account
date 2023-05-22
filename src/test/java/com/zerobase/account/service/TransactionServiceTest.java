@@ -157,7 +157,7 @@ class TransactionServiceTest {
         AccountUser pororo = AccountUser.builder()
                 .name("Pororo").build();
 
-        pororo.setId(12L);
+        pororo.setId(13L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(pobi));

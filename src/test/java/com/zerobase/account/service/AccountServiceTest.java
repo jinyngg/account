@@ -204,8 +204,9 @@ class AccountServiceTest {
         pobi.setId(12L);
 
         AccountUser pororo = AccountUser.builder()
-                .id(13L)
                 .name("Pororo").build();
+
+        pororo.setId(13L);
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(pobi));
