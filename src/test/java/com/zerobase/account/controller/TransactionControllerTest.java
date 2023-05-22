@@ -1,6 +1,7 @@
 package com.zerobase.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zerobase.account.dto.CancelBalance;
 import com.zerobase.account.dto.TransactionDto;
 import com.zerobase.account.dto.UseBalance;
 import com.zerobase.account.service.TransactionService;
@@ -59,6 +60,36 @@ class TransactionControllerTest {
                 .andExpect(jsonPath("$.transactionResult").value("S"))
                 .andExpect(jsonPath("$.transactionId").value("transactionId"))
                 .andExpect(jsonPath("$.amount").value(12345L))
+                .andDo(print());
+
+    }
+
+    @Test
+    void successCancelBalance() throws Exception {
+
+        // given
+        given(transactionService.cancelBalance(anyString(), anyString(), anyLong()))
+                .willReturn(TransactionDto.builder()
+                        .accountNumber("1000000000")
+                        .transactedAt(LocalDateTime.now())
+                        .amount(20000L)
+                        .transactionId("transactionIdForCancel")
+                        .transactionResultType(S)
+                        .build());
+
+        // when
+        // then
+        mockMvc.perform(post("/transaction/cancel")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(
+                                new CancelBalance.Request("transactionId"
+                                        , "2000000000", 3000L)
+                        )))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accountNumber").value("1000000000"))
+                .andExpect(jsonPath("$.transactionResult").value("S"))
+                .andExpect(jsonPath("$.transactionId").value("transactionIdForCancel"))
+                .andExpect(jsonPath("$.amount").value(20000L))
                 .andDo(print());
 
     }
