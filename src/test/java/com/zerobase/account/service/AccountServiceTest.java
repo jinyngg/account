@@ -135,7 +135,7 @@ class AccountServiceTest {
 
     @Test
     @DisplayName("해당 유저 없음 - 계좌 생성 실패")
-    void createAccount_userNotFound() {
+    void createAccount_UserNotFound() {
 
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.empty());
@@ -153,6 +153,7 @@ class AccountServiceTest {
     @DisplayName("해당 유저 없음 - 계좌 해지 실패")
     void deleteAccount_UserNotFound() {
 
+        // given
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.empty());
 
@@ -219,7 +220,7 @@ class AccountServiceTest {
     }
 
     @Test
-    @DisplayName("해지 계좌는 잔액 존재 - 계좌 해지 실패")
+    @DisplayName("해지 계좌 잔액 존재 - 계좌 해지 실패")
     void deleteAccountFailed_BalanceNotEmpty() {
 
         //given
@@ -246,7 +247,7 @@ class AccountServiceTest {
 
     @Test
     @DisplayName("유저 당 최대 계좌는 10개")
-    void createAccount_maxAccountIs10() {
+    void createAccount_MaxAccountIs10() {
 
         // given
         AccountUser user = AccountUser.builder()
