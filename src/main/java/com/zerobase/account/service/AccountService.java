@@ -6,12 +6,14 @@ import com.zerobase.account.dto.AccountDto;
 import com.zerobase.account.exception.AccountException;
 import com.zerobase.account.repository.AccountRepository;
 import com.zerobase.account.repository.AccountUserRepository;
+import com.zerobase.account.type.AccountStatus;
 import com.zerobase.account.type.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static com.zerobase.account.type.AccountStatus.IN_USE;
 
@@ -21,6 +23,14 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountUserRepository accountUserRepository;
+
+    @Transactional
+    public Account getAccount(Long id) {
+        if (id < 0) {
+            throw new RuntimeException("Minus");
+        }
+        return accountRepository.findById(id).get();
+    }
 
     /**
      * 1. 사용자 존재 여부 확인
@@ -61,11 +71,35 @@ public class AccountService {
     }
 
     @Transactional
-    public Account getAccount(Long id) {
-        if (id < 0) {
-            throw new RuntimeException("Minus");
-        }
-        return accountRepository.findById(id).get();
+    public AccountDto deleteAccount(Long userId, String accountNumber) {
+        AccountUser accountUser = accountUserRepository.findById(userId)
+                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
+
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        validateDeleteAccount(accountUser, account);
+
+        account.setAccountStatus(AccountStatus.UNREGISTERED);
+        account.setUnRegisteredAt(LocalDateTime.now());
+
+        // Write code for AccountServiceTest
+        accountRepository.save(account);
+
+        return AccountDto.fromEntity(account);
     }
 
+    private void validateDeleteAccount(AccountUser accountUser, Account account) {
+        if (!Objects.equals(accountUser.getId(), account.getAccountUser().getId())) {
+            throw new AccountException(ErrorCode.USER_ACCOUNT_UN_MATCH);
+        }
+
+        if (account.getAccountStatus() == AccountStatus.UNREGISTERED) {
+            throw new AccountException(ErrorCode.ACCOUNT_ALREADY_UNREGISTERED);
+        }
+
+        if (account.getBalance() > 0) {
+            throw new AccountException(ErrorCode.BALANCE_NOT_EMPTY);
+        }
+    }
 }
