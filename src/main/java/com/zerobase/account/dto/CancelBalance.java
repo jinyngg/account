@@ -1,5 +1,6 @@
 package com.zerobase.account.dto;
 
+import com.zerobase.account.aop.AccountLockIdInterface;
 import com.zerobase.account.type.TransactionResultType;
 import lombok.*;
 
@@ -31,7 +32,7 @@ public class CancelBalance {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response {
+    public static class Response implements AccountLockIdInterface {
 
         private String accountNumber;
         private TransactionResultType transactionResult;
