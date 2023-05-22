@@ -128,7 +128,7 @@ class AccountControllerTest {
                                 .accountNumber("3456789012")
                                 .balance(3000L).build());
 
-        given(accountService.getAccountByUserId(anyLong()))
+        given(accountService.getAccountsByUserId(anyLong()))
                 .willReturn(accountDtos);
 
         // when
