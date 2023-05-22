@@ -19,3 +19,5 @@ Content-Type: application/json
   "amount": 10000
 }
 
+### query transaction
+GET http://localhost:8080/transaction/0d2cb83f805e417f947e0a8ce1b05191
