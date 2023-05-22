@@ -34,6 +34,8 @@ public class AccountService {
         AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
+        validateCreateAccount(accountUser);
+
         // TODO
         // 1. 계좌 생성 시 계좌 번호는 10자리의 정수로 구성, 기존에 동일 계좌 번호가 있는지 중복체크 필요
         // 2. 기본적으로 계좌번호는 순차 증가 방식으로 생성한다.
@@ -50,6 +52,12 @@ public class AccountService {
                         .balance(initialBalance)
                         .registeredAt(LocalDateTime.now())
                         .build()));
+    }
+
+    private void validateCreateAccount(AccountUser accountUser) {
+        if (accountRepository.countByAccountUser(accountUser) == 10) {
+            throw new AccountException(ErrorCode.MAX_ACCOUNT_PER_USER_10);
+        }
     }
 
     @Transactional
