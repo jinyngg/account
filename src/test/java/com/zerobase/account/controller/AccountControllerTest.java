@@ -7,7 +7,6 @@ import com.zerobase.account.dto.CreateAccount;
 import com.zerobase.account.dto.DeleteAccount;
 import com.zerobase.account.exception.AccountException;
 import com.zerobase.account.service.AccountService;
-import com.zerobase.account.service.RedisTestService;
 import com.zerobase.account.type.AccountStatus;
 import com.zerobase.account.type.ErrorCode;
 import org.junit.jupiter.api.Test;
@@ -34,9 +33,6 @@ class AccountControllerTest {
 
     @MockBean
     private AccountService accountService;
-
-    @MockBean
-    private RedisTestService redisTestService;
 
     @Autowired
     private MockMvc mockMvc;

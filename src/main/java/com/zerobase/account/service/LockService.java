@@ -21,7 +21,7 @@ public class LockService {
         log.debug("Trying lock for accountNumber : {}", accountNumber);
 
         try {
-            // 누군가가 lock  시도 => 1초 대기 lock 검색, 획득시 lock 5초동안 갖고있다가 해제
+            // 누군가가 lock 시도 => 1초 대기 lock 검색, 획득시 lock 5초동안 갖고있다가 해제
             boolean isLock = lock.tryLock(1, 5, TimeUnit.SECONDS);
             if (!isLock) {
                 log.error("===== Lock acquisition failed =====");
@@ -35,11 +35,11 @@ public class LockService {
     }
 
     public void unlock(String accountNumber) {
-        log.debug("*Unlock for accountNumber : {}", accountNumber);
+        log.debug("Unlock for accountNumber : {}", accountNumber);
         redissonClient.getLock(getLockKey(accountNumber)).unlock();
     }
 
     private static String getLockKey(String accountNumber) {
-        return "ACLK : " + accountNumber;
+        return "ACLK:" + accountNumber;
     }
 }
