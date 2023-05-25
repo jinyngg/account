@@ -131,8 +131,8 @@ dependencies {
 ## 과제 피드백(23.05.25)
 
 - AccountException 클래스의 errorCode, errorMessage는 생성자에서 초기화되기 떄문에, final로 처리해 주시면 좋을 듯 합니다.
-- 명명 규칙에 대한 부분도 확인해 주시면 좋을 듯 합니다. 패키지는 소문자와 쩜만으로, 클래스는 파스칼표기법으로 함수, 변수는 카멜표기법으로 처리해 주시면 좋을 듯 합니다.
-- Optional findByAccountNumber(String AccountNumber); => Optional findByAccountNumber(String accountNumber);
+- ````수정완료```` 명명 규칙에 대한 부분도 확인해 주시면 좋을 듯 합니다. 패키지는 소문자와 쩜만으로, 클래스는 파스칼표기법으로 함수, 변수는 카멜표기법으로 처리해 주시면 좋을 듯 합니다.
+- ````수정완료```` Optional findByAccountNumber(String AccountNumber); => Optional findByAccountNumber(String accountNumber);
 
 - return accountRepository.findById(id).get();
 부분은 optional이기 때문에
