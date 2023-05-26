@@ -128,6 +128,10 @@ dependencies {
 ````추가사항```` : 성공거래 뿐 아니라 실패한 거래도 거래 확인할 수 있도록 합니다.
 <br>
 
+## Junit 테스트
+
+![image](https://github.com/jinyngg/account-project/assets/96164211/2d772247-28a7-4ee6-91fd-a6e00db8e797)
+
 ## 과제 피드백(23.05.25)
 
 - AccountException 클래스의 errorCode, errorMessage는 생성자에서 초기화되기 떄문에, final로 처리해 주시면 좋을 듯 합니다.
