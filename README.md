@@ -134,7 +134,7 @@ dependencies {
 - ````수정완료```` 명명 규칙에 대한 부분도 확인해 주시면 좋을 듯 합니다. 패키지는 소문자와 쩜만으로, 클래스는 파스칼표기법으로 함수, 변수는 카멜표기법으로 처리해 주시면 좋을 듯 합니다.
 - ````수정완료```` Optional findByAccountNumber(String AccountNumber); => Optional findByAccountNumber(String accountNumber);
 
-- return accountRepository.findById(id).get();
+- ````수정완료```` return accountRepository.findById(id).get();
 부분은 optional이기 때문에
 return accountRepository.findById(id)
 .orElseThrow(() -> new AccountException(ACCOUNT_NOT_FOUND));
